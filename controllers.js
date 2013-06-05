@@ -80,20 +80,21 @@ function SalaryConverter ($scope) {
     ,{name:"annnualy",      noun:"a salary", days:function(daysInWorkingWeek){return daysInWorkingWeek * 52; }}
   ];
   $scope.activeSalaryPeriod = "annnualy";
-  $scope.activeSalaryNoun = "a salary";
+  $scope.activeSalaryNoun = function() {
+    return $scope.salaryPeriods.filter(function(item){
+      return item.name==$scope.activeSalaryPeriod;
+    })[0].noun
+  };
   $scope.setSalaryPeriod = function(period){
     $scope.activeSalaryPeriod=period;
-    $scope.activeSalaryNoun = $scope.salaryPeriods.filter(function(item){
-      return item.name==$scope.activeSalaryPeriod;
-    })[0].noun;
   };
-  // $scope.daysInPeriod = function(){
-  //   return $scope.salaryPeriods.filter(function(item){
-  //     return item.name==$scope.activeSalaryPeriod;
-  //   })[0].days($scope.daysInWorkingWeek);
-  // }
+  $scope.daysInPeriod = function(){
+    return $scope.salaryPeriods.filter(function(item){
+      return item.name==$scope.activeSalaryPeriod;
+    })[0].days($scope.daysInWorkingWeek);
+  }
   $scope.convertedSalary = function() {
-    var salaryPerDay = $scope.salary/1;//$scope.daysInPeriod();
+    var salaryPerDay = $scope.salary/$scope.daysInPeriod();
     // var hoursInDay = $scope.workingHoursWeek / $scope.daysInWorkingWeek;
     var wagePerHour = salaryPerDay/$scope.workingHoursDay;
     return wagePerHour;
