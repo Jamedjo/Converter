@@ -36,7 +36,38 @@ Converter.filter('ifTrue', function() {
     }
   });
 
+function defaultCurrencyFromLanguage(){
+  var lang = window.navigator.userLanguage || window.navigator.language;
+  var symbol = "$";
+  if(/gb|uk|tr|je|ta|gs|gg|im|sd|sl|vg|cy|eg|fk|gi|lb|sh|ac|ss|sd|sy/i.test(lang)) {
+    symbol = "£";
+  }
+  if(/me|sk|ea|gf|tf|bl|mf|ie|ee|re|it|mc|si|de|es|at|yt|gp|pm|cy|pt|fr|gr|ic|be|ad|fi|lu|va|mt|sm|mq|nl|ax|cs/i.test(lang)) {
+    symbol = "€";
+  }
+  if(/cn|jp|fm|sj/i.test(lang)) {
+    symbol = "¥";
+  }
+  if(/in|bt|pk|bd|iq|np|mu|sc|lk/i.test(lang)) {
+    symbol = "₨";
+  }
+  if(/kp|kr/i.test(lang)) {
+    symbol = "₩";
+  }
+  if(/li|ch/i.test(lang)) {
+    symbol = "CHF";
+  }
+  if(/is|nb|nn|sv|et|da/i.test(lang)) {
+    symbol = "kr";
+  }
+  if(/ru/i.test(lang)) {
+    symbol = "руб";
+  }
+  return symbol;
+}
+
 function SalaryConverter ($scope) {
+  $scope.defaultCurrency = defaultCurrencyFromLanguage();
   $scope.salary=10000;
   $scope.workingHours=35;
   $scope.daysInWorkingWeek=5;
@@ -50,10 +81,12 @@ function SalaryConverter ($scope) {
   $scope.activeSalaryPeriod = "Annnual";
   $scope.setSalaryPeriod = function(period){$scope.activeSalaryPeriod=period;};
   $scope.convertedSalary = function() {
-    return $scope.salaryPeriods.filter(function(item){
+    var daysInPeriod = $scope.salaryPeriods.filter(function(item){
       return item.name==$scope.activeSalaryPeriod;
     })[0].days($scope.daysInWorkingWeek);
-    return $scope.salary;
-    // into per day 
+    var salaryPerDay = $scope.salary/daysInPeriod;
+    var hoursInDay = $scope.workingHours / $scope.daysInWorkingWeek;
+    var wagePerHour = salaryPerDay/hoursInDay;
+    return wagePerHour;
   };
 }
