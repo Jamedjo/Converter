@@ -117,7 +117,7 @@ function SalaryConverter ($scope) {
     }
   }
   $scope.averageVisible = function() {
-    return $scope.daysVisible() && $scope.hoursVisible();
+    return $scope.daysVisible() || $scope.hoursVisible();
   }
   $scope.convertedSalary = function() {
     var salaryPerDay = $scope.salary/$scope.daysInPeriod($scope.activeSalaryPeriod);
