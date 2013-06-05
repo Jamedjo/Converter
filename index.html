@@ -8,20 +8,12 @@
     <link rel="stylesheet" type="text/css" href="icons/halflings.css">
     <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="bootstrap-responsive.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
     <script src="ui-bootstrap-tpls-0.3.0.min.js"></script>
     <script src="controllers.js"></script>
 </head>
 
 <body>
-    <div>
-        <nav>
-            <ul ng-controller="navActive">
-                <li ng-class="navClass('home')"><a href='#/home'>Home</a></li>
-                <li ng-class="navClass('units')"><a href='#/units'>Unit List</a></li>
-                <!-- <li ng-class="navClass('survey')"><a href='#/survey'>Survey</a></li> -->
-            </ul>
-        </nav>
-    </div>
     <div class="navbar">
         <div class="navbar-inner" ng-controller="NavBar">
             <i class="glyphicons-icon white show_lines pull-right {{!lt550|ifTrue:'hide'}}" ng-click="isCollapsed = !isCollapsed"></i>
@@ -29,9 +21,11 @@
 
             <div class="{{lt550|ifTrue:'nav-collapse'}}" collapse="isCollapsed && lt550">
                 <ul class="nav">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
+                    <li ng-class="navClass('All')"><a href='#/All'>All</a></li>
+                    <li ng-class="navClass('Bete')"><a href='#/Bete'>Bete</a></li>
+                    <li ng-class="navClass('Charn')"><a href='#/Charn'>Charn</a></li>
+                    <li ng-class="navClass('Delts')"><a href='#/Delts'>Delts</a></li>
+                    <li ng-class="navClass('Enco')"><a href='#/Enco'>Enco</a></li>
                 </ul>
             </div>
         </div>

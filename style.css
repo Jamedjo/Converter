@@ -1,0 +1,3 @@
+.navbar .nav>.active>a, .navbar .nav>.active>a:hover {
+  box-shadow: inset 4px 0px black, inset -4px -9px black,inset 0px -13px white;
+}

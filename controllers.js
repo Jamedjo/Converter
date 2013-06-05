@@ -1,18 +1,16 @@
 var Converter = angular.module('Converter', ['ui.bootstrap']);
 
-Converter.controller('navActive', ['$scope', '$location', function ($scope, $location) {
+function NavBar($scope, $location) {
+  $scope.isCollapsed = true;
     $scope.navClass = function (page) {
-        var currentRoute = $location.path().substring(1) || 'home';
+        var currentRoute = $location.path().substring(1) || 'All';
         return page === currentRoute ? 'active' : '';
     };        
-}]);
+};
 
 
 function UnitListController($scope) {
   $scope.units = units;
-}
-function NavBar($scope) {
-  $scope.isCollapsed = true;
 }
 function updateOnResize($window, $scope) {
   $scope.width = $window.innerWidth;
