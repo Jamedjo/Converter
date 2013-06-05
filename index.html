@@ -37,12 +37,22 @@
         <span class="dropdown">
             <a class="dropdown-toggle">{{activeSalaryPeriod}}</a>
             <ul class="dropdown-menu">
-                <li ng-repeat="choice in salaryPeriods">
+                <li ng-repeat="choice in timePeriods">
                     <a ng-click="setSalaryPeriod(choice.name)">{{choice.name}}</a>
                 </li>
             </ul>
         </span>
-        , working an average of <input type="number" style="width: 2.5em;" ng-model="workingHoursDay" placeholder="hours"> hours a day, <input type="number" style="width: 2.5em;" min="1" max="7" ng-model="daysInWorkingWeek" placeholder="days"> days a week, is equivelent to <h3>{{convertedSalary()|currency:defaultCurrency}}</h3> hourly.
+        , <span ng-show="averageVisible()">working an average of</span>
+        <span ng-show="hoursVisible()"><input type="number" style="width: 2.5em;" ng-model="workingHoursDay" placeholder="hours"> hours a day,</span>
+        <span ng-show="daysVisible()"><input type="number" style="width: 2.5em;" min="1" max="7" ng-model="daysInWorkingWeek" placeholder="days"> days a week,</span> is equivelent to <h3>{{convertedSalary()|currency:defaultCurrency}}</h3>
+        <span class="dropdown">
+            <a class="dropdown-toggle">{{activeOutputPeriod}}</a>
+            <ul class="dropdown-menu">
+                <li ng-repeat="choice in timePeriods">
+                    <a ng-click="setOutputPeriod(choice.name)">{{choice.name}}</a>
+                </li>
+            </ul>
+        </span>.
     </section>
 </body>
 </html>

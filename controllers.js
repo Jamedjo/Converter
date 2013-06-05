@@ -68,35 +68,65 @@ function defaultCurrencyFromLanguage(){
 
 function SalaryConverter ($scope) {
   $scope.defaultCurrency = defaultCurrencyFromLanguage();
-  $scope.salary=10000;
-  $scope.workingHoursDay=7;
+  $scope.salary=12480;
+  $scope.workingHoursDay=8;
   // $scope.workingHoursWeek=35;
   $scope.daysInWorkingWeek=5;
-  $scope.salaryPeriods = [
-     {name:"daily",         noun:"wages", days:function(daysInWorkingWeek){return 1;}}
+  $scope.timePeriods = [
+     {name:"hourly",        noun:"wages", days:function(){return 1}}
+    ,{name:"daily",         noun:"wages", days:function(daysInWorkingWeek){return 1;}}
     ,{name:"weekly",        noun:"a salary", days:function(daysInWorkingWeek){return daysInWorkingWeek;}}
     ,{name:"every 4 weeks", noun:"a salary", days:function(daysInWorkingWeek){return daysInWorkingWeek * 4;}}
     ,{name:"monthly",       noun:"a salary", days:function(daysInWorkingWeek){return (daysInWorkingWeek * 52)/12; }}
     ,{name:"annnualy",      noun:"a salary", days:function(daysInWorkingWeek){return daysInWorkingWeek * 52; }}
   ];
   $scope.activeSalaryPeriod = "annnualy";
+  $scope.activeOutputPeriod = "hourly";
   $scope.activeSalaryNoun = function() {
-    return $scope.salaryPeriods.filter(function(item){
+    return $scope.timePeriods.filter(function(item){
       return item.name==$scope.activeSalaryPeriod;
     })[0].noun
   };
   $scope.setSalaryPeriod = function(period){
     $scope.activeSalaryPeriod=period;
   };
-  $scope.daysInPeriod = function(){
-    return $scope.salaryPeriods.filter(function(item){
-      return item.name==$scope.activeSalaryPeriod;
+  $scope.setOutputPeriod = function(period){
+    $scope.activeOutputPeriod=period;
+  };
+  $scope.daysInPeriod = function(activePeriod){
+    return $scope.timePeriods.filter(function(item){
+      return item.name==activePeriod;
     })[0].days($scope.daysInWorkingWeek);
   }
+  $scope.hoursVisible = function() {
+     return ($scope.activeSalaryPeriod=="hourly") || ($scope.activeOutputPeriod=="hourly")
+  }
+  $scope.daysVisible = function() {//daily-daily false, week-week false, day-week true, week-day,true
+    if(($scope.activeOutputPeriod=="hourly") || ($scope.activeOutputPeriod=="daily")){
+      if(($scope.activeSalaryPeriod=="hourly") || ($scope.activeSalaryPeriod=="daily")){
+        return false;
+      } else {
+        return true;
+      }
+    } else {
+      if(($scope.activeSalaryPeriod=="hourly") || ($scope.activeSalaryPeriod=="daily")){
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
+  $scope.averageVisible = function() {
+    return $scope.daysVisible() && $scope.hoursVisible();
+  }
   $scope.convertedSalary = function() {
-    var salaryPerDay = $scope.salary/$scope.daysInPeriod();
+    var salaryPerDay = $scope.salary/$scope.daysInPeriod($scope.activeSalaryPeriod);
+    if($scope.activeSalaryPeriod=="hourly"){salaryPerDay=salaryPerDay*$scope.workingHoursDay}
     // var hoursInDay = $scope.workingHoursWeek / $scope.daysInWorkingWeek;
-    var wagePerHour = salaryPerDay/$scope.workingHoursDay;
-    return wagePerHour;
+    if($scope.activeOutputPeriod=="hourly"){
+      return salaryPerDay/$scope.workingHoursDay;
+    } else {
+      return salaryPerDay * $scope.daysInPeriod($scope.activeOutputPeriod);
+    }
   };
 }
