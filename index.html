@@ -25,11 +25,30 @@
                     <li ng-class="navClass('Bete')"><a href='#/Bete'>Bete</a></li>
                     <li ng-class="navClass('Charn')"><a href='#/Charn'>Charn</a></li>
                     <li ng-class="navClass('Delts')"><a href='#/Delts'>Delts</a></li>
-                    <li ng-class="navClass('Enco')"><a href='#/Enco'>Enco</a></li>
+                    <li ng-class="navClass('Salary')"><a href='#/Salary'>Salary</a></li>
                 </ul>
             </div>
         </div>
     </div>
 
+    <h2>Salary</h2>
+    <section class="well well-large" ng-controller="SalaryConverter">
+        <div>
+            Earning a 
+            <li class="dropdown">
+                <a class="dropdown-toggle">{{activeSalaryPeriod}}</a>
+                <ul class="dropdown-menu">
+                    <li ng-repeat="choice in salaryPeriods">
+                        <a ng-click="setSalaryPeriod(choice.name)">{{choice.name}}</a>
+                    </li>
+                </ul>
+            </li>
+             salery of <input type="number" ng-model="salary" placeholder="Enter Salary">
+        </div>
+        <div>
+            Working an average of <input type="number" ng-model="workingHours" placeholder="Enter hours"> hours a week, <input type="number" ng-model="daysInWorkingWeek" placeholder="Enter Days"> days a week.
+        </div>
+        <div>Is equivelent to <h3>{{convertedSalary()|currency}}</h3></div>
+    </section>
 </body>
 </html>
