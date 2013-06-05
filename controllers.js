@@ -11,6 +11,28 @@ Converter.controller('navActive', ['$scope', '$location', function ($scope, $loc
 function UnitListController($scope) {
   $scope.units = units;
 }
-function CollapseDemoCtrl($scope) {
+function NavBar($scope) {
   $scope.isCollapsed = true;
 }
+function updateOnResize($window, $scope) {
+  $scope.width = $window.innerWidth;
+  $scope.height = $window.innerHeight;
+  $scope.lt550 = ($window.innerWidth<550);
+}
+Converter.run(function ($window, $rootScope) {
+  updateOnResize($window, $rootScope);
+  angular.element($window).bind('resize', function () {
+      $rootScope.$apply(function () {
+          updateOnResize($window, $rootScope);
+      });
+  });
+});
+
+Converter.filter('ifTrue', function() {
+    return function(input, trueText) {
+      if (input) {
+        return trueText;
+      }
+      return "";
+    }
+  });

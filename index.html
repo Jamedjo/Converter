@@ -4,8 +4,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>The Jamedjo Converter</title>
     <script src="angular.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="icons/glyphicons.css">
+    <link rel="stylesheet" type="text/css" href="icons/halflings.css">
     <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
-    <!-- <link rel="stylesheet" type="text/css" href="bootstrap-responsive.min.css"> -->
+    <link rel="stylesheet" type="text/css" href="bootstrap-responsive.min.css">
     <script src="ui-bootstrap-tpls-0.3.0.min.js"></script>
     <script src="controllers.js"></script>
 </head>
@@ -21,26 +23,16 @@
         </nav>
     </div>
     <div class="navbar">
-        <div class="navbar-inner" ng-controller="CollapseDemoCtrl">
-            <div class="container">
-                
-                <a class="btn btn-navbar" ng-click="isCollapsed = !isCollapsed">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </a>
-                <a class="brand" href="#">Converter</a>
+        <div class="navbar-inner" ng-controller="NavBar">
+            <i class="glyphicons-icon white show_lines pull-right {{!lt550|ifTrue:'hide'}}" ng-click="isCollapsed = !isCollapsed"></i>
+            <a class="brand" href="#">Converter</a>
 
-
-                <div class="nav-collapse collapse" collapse="isCollapsed">
-                    <ul class="nav">
-                        <li class="active"><a href="#">Home</a></li>
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
-                    </ul>
-                </div>
-
-
+            <div class="{{lt550|ifTrue:'nav-collapse'}}" collapse="isCollapsed && lt550">
+                <ul class="nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                </ul>
             </div>
         </div>
     </div>
