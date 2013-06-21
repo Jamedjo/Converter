@@ -8,10 +8,13 @@ function NavBar($scope, $location) {
     };        
 };
 
-
-function UnitListController($scope) {
-  $scope.units = units;
+function WordCountController($scope){
+  $scope.text = "";
+  $scope.countWords = function(){
+    return $scope.text.trim().replace(/\s+/gi, ' ').split(' ').length
+  };
 }
+
 function updateOnResize($window, $scope) {
   $scope.width = $window.innerWidth;
   $scope.height = $window.innerHeight;
@@ -42,25 +45,25 @@ function defaultCurrencyFromLanguage(){
   if(/gb|uk|tr|je|ta|gs|gg|im|sd|sl|vg|cy|eg|fk|gi|lb|sh|ac|ss|sd|sy/i.test(lang)) {
     symbol = "£";
   }
-  if(/me|sk|ea|gf|tf|bl|mf|ie|ee|re|it|mc|si|de|es|at|yt|gp|pm|cy|pt|fr|gr|ic|be|ad|fi|lu|va|mt|sm|mq|nl|ax|cs/i.test(lang)) {
+  else if(/me|sk|ea|gf|tf|bl|mf|ie|ee|re|it|mc|si|de|es|at|yt|gp|pm|cy|pt|fr|gr|ic|be|ad|fi|lu|va|mt|sm|mq|nl|ax|cs/i.test(lang)) {
     symbol = "€";
   }
-  if(/cn|jp|fm|sj/i.test(lang)) {
+  else if(/cn|jp|fm|sj/i.test(lang)) {
     symbol = "¥";
   }
-  if(/in|bt|pk|bd|iq|np|mu|sc|lk/i.test(lang)) {
+  else if(/in|bt|pk|bd|iq|np|mu|sc|lk/i.test(lang)) {
     symbol = "₨";
   }
-  if(/kp|kr/i.test(lang)) {
+  else if(/kp|kr/i.test(lang)) {
     symbol = "₩";
   }
-  if(/li|ch/i.test(lang)) {
+  else if(/li|ch/i.test(lang)) {
     symbol = "CHF";
   }
-  if(/is|nb|nn|sv|et|da/i.test(lang)) {
+  else if(/is|nb|nn|sv|et|da/i.test(lang)) {
     symbol = "kr";
   }
-  if(/ru/i.test(lang)) {
+  else if(/ru/i.test(lang)) {
     symbol = "руб";
   }
   return symbol;

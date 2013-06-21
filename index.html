@@ -55,5 +55,11 @@
             </ul>
         </span>.
     </section>
+
+    <h2>Word Count</h2>
+    <section class="well well-large" ng-controller="WordCountController">
+        <textarea ng-model="text"></textarea>
+        <strong>Words: {{countWords()}}</strong>
+    </section>
 </body>
 </html>
