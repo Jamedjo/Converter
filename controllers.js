@@ -81,9 +81,9 @@ function SalaryConverter ($scope) {
     ,{name:"weekly",        noun:"a salary", days:function(daysInWorkingWeek){return daysInWorkingWeek;}}
     ,{name:"every 4 weeks", noun:"a salary", days:function(daysInWorkingWeek){return daysInWorkingWeek * 4;}}
     ,{name:"monthly",       noun:"a salary", days:function(daysInWorkingWeek){return (daysInWorkingWeek * 52)/12; }}
-    ,{name:"annnualy",      noun:"a salary", days:function(daysInWorkingWeek){return daysInWorkingWeek * 52; }}
+    ,{name:"annually",      noun:"a salary", days:function(daysInWorkingWeek){return daysInWorkingWeek * 52; }}
   ];
-  $scope.activeSalaryPeriod = "annnualy";
+  $scope.activeSalaryPeriod = "annually";
   $scope.activeOutputPeriod = "hourly";
   $scope.activeSalaryNoun = function() {
     return $scope.timePeriods.filter(function(item){
